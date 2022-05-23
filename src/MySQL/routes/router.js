@@ -17,7 +17,6 @@ router.post('/login', (req, res, next) => {
     (err, result) => {
       // user does not exists
       if (err) {
-        throw err;
         return res.status(400).send({
           msg: err,
         });
@@ -34,9 +33,8 @@ router.post('/login', (req, res, next) => {
         (bErr, bResult) => {
           // wrong password
           if (bErr) {
-            throw bErr;
             return res.status(401).send({
-              msg: 'Username or password is incorrect!',
+              msg: 'Username or password is incorrect!' + bErr,
             });
           }
           if (bResult) {
