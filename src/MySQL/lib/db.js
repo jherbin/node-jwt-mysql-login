@@ -1,9 +1,9 @@
-import mysql from 'mysql';
+const mysql = require('mysql');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'usersManager',
-  database: 'MySQLService',
+  database: 'users',
   password: 'node-jwt',
 });
 
