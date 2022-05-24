@@ -91,6 +91,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
               )}, ${db.escape(hash)}, now())`,
               (err, result) => {
                 if (err) {
+                  console.log(err);
                   return res.status(400).send({
                     msg: err,
                   });

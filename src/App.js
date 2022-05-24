@@ -26,7 +26,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter basename={process.env.BASE_URL}>
+    <BrowserRouter>
       <nav>
         <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
@@ -34,7 +34,7 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login logIn={logIn} />} />
+        <Route path="login" element={<Login />} />
         <Route path="sign-up" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
