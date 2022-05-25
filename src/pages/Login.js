@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import AuthService from '../services/AuthService';
 
-export default function Login() {
+export default function Login(props) {
   const [username, setUsername] = useState('');
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -11,8 +10,6 @@ export default function Login() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
-
-  const [msg, setMsg] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -38,6 +35,7 @@ export default function Login() {
           onChange={handlePasswordChange}
         />
         <input type="submit" value="Login" />
+        {props.msg && <p>{props.msg}</p>}
       </form>
     </div>
   );

@@ -10,6 +10,7 @@ import AuthService from './services/AuthService';
 function App() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
+  const [loginMsg, setLoginMsg] = useState('');
 
   const getDefaultState = () => {
     setToken('');
@@ -29,13 +30,12 @@ function App() {
         password: password,
       };
       const response = await AuthService.login(credentials);
-      setMsg(response.msg);
-      const token = response.token;
-      const user = response.user;
-      this.$store.dispatch('login', { token, user });
-      this.$router.push('/');
+      setLoginMsg(response.msg);
+      setToken(response.token);
+      setUser(response.user);
+      //this.$router.push('/');
     } catch (error) {
-      this.msg = error.response.data.msg;
+      setLoginMsg(error.response.data.msg);
     }
   };
 
@@ -47,14 +47,12 @@ function App() {
     <BrowserRouter>
       <nav>
         <Link to="/">Home</Link>
-        <Link to="/login" login={login}>
-          Login
-        </Link>
+        <Link to="/login">Login</Link>
         <Link to="/sign-up">Sign Up</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login msg={loginMsg} />} />
         <Route path="sign-up" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
