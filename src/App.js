@@ -4,7 +4,6 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import { useState } from 'react';
-import Axios from 'axios';
 import AuthService from './services/AuthService';
 
 function App() {
@@ -17,12 +16,6 @@ function App() {
     setUser({});
   };
 
-  const logIn = (user, token) => {
-    setUser(user);
-    setToken(token);
-    Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  };
-
   const login = async (username, password) => {
     try {
       const credentials = {
@@ -30,6 +23,7 @@ function App() {
         password: password,
       };
       const response = await AuthService.login(credentials);
+      console.log(response);
       setLoginMsg(response.msg);
       setToken(response.token);
       setUser(response.user);
@@ -39,7 +33,7 @@ function App() {
     }
   };
 
-  const logOut = () => {
+  const logout = () => {
     getDefaultState();
   };
 
@@ -51,8 +45,11 @@ function App() {
         <Link to="/sign-up">Sign Up</Link>
       </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login msg={loginMsg} />} />
+        <Route
+          path="/"
+          element={<Home token={token} user={user} logout={logout} />}
+        />
+        <Route path="login" element={<Login msg={loginMsg} login={login} />} />
         <Route path="sign-up" element={<SignUp />} />
       </Routes>
     </BrowserRouter>

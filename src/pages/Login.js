@@ -13,7 +13,7 @@ export default function Login(props) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    this.props.login(username, password);
+    props.login(username, password);
   };
 
   return (
