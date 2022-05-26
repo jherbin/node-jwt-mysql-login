@@ -29,7 +29,7 @@ router.post('/login', (req, res, next) => {
           // wrong password
           if (bErr) {
             return res.status(401).send({
-              msg: 'Username or password is incorrect!' + bErr,
+              msg: 'Username or password is incorrect!',
             });
           }
           if (bResult) {
@@ -74,7 +74,7 @@ router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {
     (err, result) => {
       if (result.length) {
         return res.status(409).send({
-          msg: 'This username is already in use!' + err,
+          msg: 'This username is already in use!',
         });
       } else {
         // username is available

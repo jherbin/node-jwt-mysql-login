@@ -1,5 +1,4 @@
 import React from 'react';
-import AuthService from '../services/AuthService';
 
 export default function Home(props) {
   const handleLogout = () => {

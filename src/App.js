@@ -3,7 +3,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AuthService from './services/AuthService';
 
 function App() {
@@ -27,11 +27,20 @@ function App() {
       setLoginMsg(response.msg);
       setToken(response.token);
       setUser(response.user);
+      window.localStorage.setItem('token', token);
       //this.$router.push('/');
     } catch (error) {
       setLoginMsg(error.response.data.msg);
     }
   };
+
+  useEffect(() => {
+    if (!window.localStorage.getItem('token')) {
+      window.localStorage.setItem('token', token);
+    } else {
+      setToken(window.localStorage.getItem('token'));
+    }
+  }, [token]);
 
   const logout = () => {
     getDefaultState();
