@@ -9,9 +9,12 @@ module.exports = {
       });
     }
 
-    if (!req.body.password || req.body.password.length < 6) {
+    if (
+      !req.body.password ||
+      req.body.password.length < process.env.PASSWORD_MIN_LENGTH
+    ) {
       return res.status(400).send({
-        msg: 'Please enter a password with min. 6 chars',
+        msg: `Please enter a password with min. ${process.env.PASSWORD_MIN_LENGTH} chars`,
       });
     }
 
