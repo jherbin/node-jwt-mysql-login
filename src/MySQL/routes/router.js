@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -38,7 +39,7 @@ router.post('/login', (req, res, next) => {
                 username: result[0].username,
                 userId: result[0].id,
               },
-              'SECRETKEY',
+              process.env.SECRET_KEY,
               {
                 expiresIn: '7d',
               }
