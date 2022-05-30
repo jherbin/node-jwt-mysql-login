@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
@@ -10,11 +10,8 @@ function App() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
   const [loginMsg, setLoginMsg] = useState('');
-
-  const getDefaultState = () => {
-    setToken('');
-    setUser({});
-  };
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let navigate = useNavigate('/');
 
   const login = async (username, password) => {
     try {
@@ -27,31 +24,35 @@ function App() {
       setLoginMsg(response.msg);
       setToken(response.token);
       setUser(response.user);
+      setIsLoggedIn(true);
       window.localStorage.setItem('token', token);
-      //this.$router.push('/');
+      navigate('/', { replace: true });
     } catch (error) {
       setLoginMsg(error.response.data.msg);
     }
   };
 
   useEffect(() => {
-    if (!window.localStorage.getItem('token')) {
-      window.localStorage.setItem('token', token);
+    let localStorageToken = window.localStorage.getItem('token');
+    if (localStorageToken) {
     } else {
       setToken(window.localStorage.getItem('token'));
     }
   }, [token]);
 
   const logout = () => {
-    getDefaultState();
+    setToken('');
+    setUser({});
+    setIsLoggedIn(false);
+    window.localStorage.clear();
   };
 
   return (
-    <BrowserRouter>
+    <div>
       <nav>
         <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/sign-up">Sign Up</Link>
+        {!isLoggedIn && <Link to="/login">Login</Link>}
+        {!isLoggedIn && <Link to="/sign-up">Sign Up</Link>}
       </nav>
       <Routes>
         <Route
@@ -61,7 +62,7 @@ function App() {
         <Route path="login" element={<Login msg={loginMsg} login={login} />} />
         <Route path="sign-up" element={<SignUp />} />
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 

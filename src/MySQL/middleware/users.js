@@ -3,9 +3,12 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
   validateRegister: (req, res, next) => {
-    if (!req.body.username || req.body.username.length < 3) {
+    if (
+      !req.body.username ||
+      req.body.username.length < process.env.USERNAME_MIN_LENGTH
+    ) {
       return res.status(400).send({
-        msg: 'Please enter a username with min. 3 chars',
+        msg: `Please enter a username with min. ${process.env.USERNAME_MIN_LENGTH} chars`,
       });
     }
 
