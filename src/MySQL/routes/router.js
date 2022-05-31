@@ -41,7 +41,7 @@ router.post('/login', (req, res, next) => {
               },
               process.env.SECRET_KEY,
               {
-                expiresIn: '7d',
+                expiresIn: process.env.TOKEN_EXPIRE_TIME,
               }
             );
             db.query(
@@ -63,7 +63,6 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
-  console.log(req.userData);
   res.send('This is the secret content. Only logged in users can see that!');
 });
 
