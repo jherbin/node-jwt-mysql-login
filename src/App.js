@@ -28,7 +28,7 @@ function App() {
       setToken(response.token);
       setUser(response.user);
       setIsLoggedIn(true);
-      const secret = await AuthService.getSecretContent();
+      const secret = await AuthService.getSecretContent(token);
       setSecretContent(secret);
       window.localStorage.setItem('token', token);
       navigate('/', { replace: true });

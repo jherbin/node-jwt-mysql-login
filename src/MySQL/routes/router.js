@@ -63,6 +63,7 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
+  console.log('foo');
   res.send('This is the secret content. Only logged in users can see that!');
 });
 
