@@ -9,12 +9,10 @@ import SecretRoute from './pages/SecretRoute';
 
 function App() {
   const [token, setToken] = useState('');
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState('');
   const [loginMsg, setLoginMsg] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   let navigate = useNavigate('/');
-
-  const [secretContent, setSecretContent] = useState('');
 
   const login = async (username, password) => {
     try {
@@ -28,8 +26,7 @@ function App() {
       setToken(response.token);
       setUser(response.user);
       setIsLoggedIn(true);
-      const secret = await AuthService.getSecretContent(token);
-      setSecretContent(secret);
+
       window.localStorage.setItem('token', token);
       navigate('/', { replace: true });
     } catch (error) {
@@ -39,7 +36,7 @@ function App() {
 
   const logout = () => {
     setToken('');
-    setUser({});
+    setUser('');
     setIsLoggedIn(false);
     window.localStorage.clear();
   };
@@ -50,7 +47,7 @@ function App() {
         <Link to="/">Home</Link>
         {!isLoggedIn && <Link to="/login">Login</Link>}
         {!isLoggedIn && <Link to="/sign-up">Sign Up</Link>}
-        <Link to="/secret-route">Secret Route</Link>
+        {isLoggedIn && <Link to="/secret-route">Secret Route</Link>}
       </nav>
       <Routes>
         <Route
@@ -59,10 +56,7 @@ function App() {
         />
         <Route path="login" element={<Login msg={loginMsg} login={login} />} />
         <Route path="sign-up" element={<SignUp />} />
-        <Route
-          path="secret-route"
-          element={<SecretRoute secretContent={secretContent} />}
-        />
+        <Route path="secret-route" element={<SecretRoute token={token} />} />
       </Routes>
     </div>
   );

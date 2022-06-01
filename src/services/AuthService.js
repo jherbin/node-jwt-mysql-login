@@ -13,9 +13,8 @@ const AuthService = {
       .then((response) => response.data);
   },
   getSecretContent(token) {
-    console.log(token);
     return axios
-      .get(url + 'secret-route', {
+      .get(url + 'secret-route/', {
         headers: {
           authorization: token,
         },
