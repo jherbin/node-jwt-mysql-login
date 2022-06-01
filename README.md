@@ -1,8 +1,14 @@
-https://webdeasy.de/en/complete-login-system-with-node-js-vue-js-restapi-jwt-part-1-2/#restapi
+# https://webdeasy.de/en/complete-login-system-with-node-js-vue-js-restapi-jwt-part-1-2/#restapi
 
-Translated to React
+# Translated to React
 
-.env file variables:
+# to do:
+
+- display 401 error on secret route when not logged in
+- add blacklist tokens database and expire tokens on logout
+
+# .env file variables:
+
 SERVER_PORT = 5000
 SECRET_KEY = "TOPSECRET"
 PASSWORD_MIN_LENGTH = 6

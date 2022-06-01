@@ -21,7 +21,6 @@ function App() {
         password: password,
       };
       const response = await AuthService.login(credentials);
-      console.log(response);
       setLoginMsg(response.msg);
       setToken(response.token);
       setUser(response.user);

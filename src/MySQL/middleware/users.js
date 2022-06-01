@@ -1,4 +1,7 @@
 require('dotenv').config();
+const {
+  getNextKeyDef,
+} = require('@testing-library/user-event/dist/keyboard/getNextKeyDef');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -39,6 +42,7 @@ module.exports = {
       req.userData = decoded;
       next();
     } catch (err) {
+      console.log(err);
       return res.status(401).send({
         msg: 'Your session is not valid!',
       });

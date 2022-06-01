@@ -3,10 +3,21 @@ import AuthService from '../services/AuthService';
 
 export default function SecretRoute(props) {
   const [secretContent, setSecretContent] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    AuthService.getSecretContent(props.token).then(setSecretContent);
+    try {
+      AuthService.getSecretContent(props.token).then(setSecretContent);
+    } catch (err) {
+      console.log(err.response.data.msg);
+      setError(err.response.data.msg);
+    }
   }, [props.token]);
 
-  return <div>{secretContent}</div>;
+  return (
+    <div>
+      {secretContent}
+      {error}
+    </div>
+  );
 }
