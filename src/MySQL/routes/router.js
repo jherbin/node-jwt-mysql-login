@@ -63,8 +63,28 @@ router.post('/login', (req, res, next) => {
 });
 
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
-  console.log('foo');
-  res.send('This is the secret content. Only logged in users can see that!');
+  console.log(req.userData);
+  db.query(
+    `SELECT registered FROM users WHERE LOWER(id) = LOWER(${db.escape(
+      req.userData.userId
+    )})`,
+    (err, result) => {
+      if (err) {
+        return res.status(500).send({
+          msg: 'Problem retrieving user information',
+        });
+      } else {
+        console.log(result[0].registered);
+        res
+          .status(200)
+          .send(
+            result[0].registered.toLocaleTimeString() +
+              ' ' +
+              result[0].registered.toLocaleDateString()
+          );
+      }
+    }
+  );
 });
 
 router.post('/sign-up', userMiddleware.validateRegister, (req, res, next) => {

@@ -33,11 +33,8 @@ module.exports = {
     next();
   },
   isLoggedIn: (req, res, next) => {
-    console.log(req.headers);
-    console.log(JSON.stringify(req.headers.authorization, null, 2));
     try {
       const token = req.headers.authorization;
-      console.log(req.headers);
       const decoded = jwt.verify(token, process.env.SECRET_KEY);
       req.userData = decoded;
       next();
