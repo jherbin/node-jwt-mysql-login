@@ -7,6 +7,7 @@ export default function SecretRoute(props) {
 
   useEffect(() => {
     try {
+      console.log(props.token);
       AuthService.getSecretContent(props.token).then(setSecretContent);
     } catch (err) {
       console.log(err.response.data.msg);

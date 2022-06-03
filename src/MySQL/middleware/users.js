@@ -1,7 +1,4 @@
 require('dotenv').config();
-const {
-  getNextKeyDef,
-} = require('@testing-library/user-event/dist/keyboard/getNextKeyDef');
 const jwt = require('jsonwebtoken');
 
 module.exports = {

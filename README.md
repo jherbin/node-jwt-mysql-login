@@ -6,11 +6,17 @@
 
 - display 401 error on secret route when not logged in
 - add blacklist tokens database and expire tokens on logout
+- make login persist through page refresh
 
 # .env file variables:
 
-- SERVER_PORT = 5000
 - SECRET_KEY = "TOPSECRET"
 - PASSWORD_MIN_LENGTH = 6
 - USERNAME_MIN_LENGTH = 3
 - TOKEN_EXPIRE_TIME = "7d"
+
+- SERVER_PORT = 5000
+- HOST: 'localhost',
+- DATABASE_USER: 'usersManager',
+- DATABASE: 'users',
+- DATABASE_PASSWORD: 'node-jwt',
