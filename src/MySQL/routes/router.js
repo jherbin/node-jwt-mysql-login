@@ -69,6 +69,7 @@ router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     )})`,
     (err, result) => {
       if (err) {
+        console.log(err);
         res.status(500).send({
           msg: 'Problem retrieving user information',
         });
