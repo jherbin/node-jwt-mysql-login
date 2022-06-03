@@ -16,7 +16,7 @@
 - TOKEN_EXPIRE_TIME = "7d"
 
 - SERVER_PORT = 5000
-- HOST: 'localhost',
-- DATABASE_USER: 'usersManager',
-- DATABASE: 'users',
-- DATABASE_PASSWORD: 'node-jwt',
+- HOST: 'localhost'
+- DATABASE_USER: 'usersManager'
+- DATABASE: 'users'
+- DATABASE_PASSWORD: 'node-jwt'
