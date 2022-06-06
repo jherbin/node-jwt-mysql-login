@@ -4,7 +4,6 @@
 
 # to do:
 
-- display 401 error on secret route when not logged in
 - add blacklist tokens database and expire tokens on logout
 - make login persist through page refresh
 
