@@ -28,3 +28,14 @@
     PRIMARY KEY (`token`),
     UNIQUE INDEX `token_UNIQUE` (`token` ASC) VISIBLE)
     ENGINE = InnoDB;
+
+    CREATE TABLE `users` (
+    `id` varchar(45) NOT NULL,
+    `username` varchar(255) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    `email` varchar(255) DEFAULT NULL,
+    `registered` datetime DEFAULT CURRENT_TIMESTAMP,
+    `last_login` datetime DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `id_UNIQUE` (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
