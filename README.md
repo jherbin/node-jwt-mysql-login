@@ -22,13 +22,6 @@
 
 # SQL schemas:
 
-    CREATE TABLE `users`.`blacklist_tokens` (
-    `token` VARCHAR(255) NOT NULL,
-    `expiration_date` DATETIME NOT NULL,
-    PRIMARY KEY (`token`),
-    UNIQUE INDEX `token_UNIQUE` (`token` ASC) VISIBLE)
-    ENGINE = InnoDB;
-
     CREATE TABLE `users` (
     `id` varchar(45) NOT NULL,
     `username` varchar(255) NOT NULL,
@@ -39,3 +32,10 @@
     PRIMARY KEY (`id`),
     UNIQUE KEY `id_UNIQUE` (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+    CREATE TABLE `users`.`blacklist_tokens` (
+    `token` VARCHAR(255) NOT NULL,
+    `expiration_date` DATETIME NOT NULL,
+    PRIMARY KEY (`token`),
+    UNIQUE INDEX `token_UNIQUE` (`token` ASC) VISIBLE)
+    ENGINE = InnoDB;
