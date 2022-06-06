@@ -9,7 +9,9 @@ export default function Home(props) {
     <div>
       <h1>Hi {props.user.username}</h1>
       <p></p>
-      <input type="button" value="Logout" onClick={handleLogout} />
+      {props.isLoggedIn && (
+        <input type="button" value="Logout" onClick={handleLogout} />
+      )}
     </div>
   );
 }

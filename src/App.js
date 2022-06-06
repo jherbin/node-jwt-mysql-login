@@ -27,7 +27,7 @@ function App() {
       setIsLoggedIn(true);
 
       window.localStorage.setItem('token', token);
-      navigate('/', { replace: true });
+      navigate('/secret-route', { replace: true });
     } catch (error) {
       setLoginMsg(error.response.data.msg);
     }
@@ -51,7 +51,14 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home token={token} user={user} logout={logout} />}
+          element={
+            <Home
+              token={token}
+              user={user}
+              logout={logout}
+              isLoggedIn={isLoggedIn}
+            />
+          }
         />
         <Route path="login" element={<Login msg={loginMsg} login={login} />} />
         <Route path="sign-up" element={<SignUp />} />

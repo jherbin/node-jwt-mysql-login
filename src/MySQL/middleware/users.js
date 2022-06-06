@@ -39,7 +39,6 @@ module.exports = {
       req.userData = decoded;
       next();
     } catch (err) {
-      console.log(err);
       return res.status(401).send({
         msg: 'Your session is not valid!',
       });
