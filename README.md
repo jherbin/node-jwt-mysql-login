@@ -19,3 +19,12 @@
 - DATABASE_USER: 'usersManager'
 - DATABASE: 'users'
 - DATABASE_PASSWORD: 'node-jwt'
+
+# SQL schemas:
+
+    CREATE TABLE `users`.`blacklist_tokens` (
+    `token` VARCHAR(255) NOT NULL,
+    `expiration_date` DATETIME NOT NULL,
+    PRIMARY KEY (`token`),
+    UNIQUE INDEX `token_UNIQUE` (`token` ASC) VISIBLE)
+    ENGINE = InnoDB;
