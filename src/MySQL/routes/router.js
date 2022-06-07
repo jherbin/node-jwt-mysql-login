@@ -14,81 +14,119 @@ router.post('/login', (req, res, next) => {
     });
   }
   if (req.body.username) {
-  }
-  db.query(
-    `SELECT * FROM users WHERE username = ${db.escape(req.body.username)};`,
-    (err, result) => {
-      // user does not exists
-      if (err) {
-        return res.status(400).send({
-          msg: err,
-        });
-      }
-      if (req.body.username) {
-        if (!result.length) {
-          return res.status(401).send({
-            msg: 'Username or password is incorrect!',
+    db.query(
+      `SELECT * FROM users WHERE username = ${db.escape(req.body.username)};`,
+      (err, result) => {
+        // user does not exists
+        if (err) {
+          return res.status(400).send({
+            msg: err,
           });
         }
-      }
-      // username is OK
-      db.query(
-        `SELECT * FROM users WHERE email = ${db.escape(req.body.email)};`,
-        (err, result) => {
-          // user does not exists
-          if (err) {
-            return res.status(400).send({
-              msg: err,
+        if (req.body.username) {
+          if (!result.length) {
+            return res.status(401).send({
+              msg: 'Username or password is incorrect!',
             });
           }
-          if (req.body.email) {
-            if (!result.length) {
-              return res.status(401).send({
-                msg: 'email or password is incorrect!',
-              });
-            }
-          }
-          // email is OK
-          // check password
-          bcrypt.compare(
-            req.body.password,
-            result[0]['password'],
-            (bErr, bResult) => {
-              // wrong password
-              if (bErr) {
-                return res.status(401).send({
-                  msg: 'Username or password is incorrect!',
-                });
-              }
-              if (bResult) {
-                const token = jwt.sign(
-                  {
-                    username: result[0].username,
-                    userId: result[0].id,
-                  },
-                  process.env.SECRET_KEY,
-                  {
-                    expiresIn: process.env.TOKEN_EXPIRE_TIME,
-                  }
-                );
-                db.query(
-                  `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-                );
-                return res.status(200).send({
-                  msg: 'Logged in!',
-                  token,
-                  user: result[0],
-                });
-              }
+        }
+        // username is OK
+        // check password
+        bcrypt.compare(
+          req.body.password,
+          result[0]['password'],
+          (bErr, bResult) => {
+            // wrong password
+            if (bErr) {
               return res.status(401).send({
                 msg: 'Username or password is incorrect!',
               });
             }
-          );
+            if (bResult) {
+              const token = jwt.sign(
+                {
+                  username: result[0].username,
+                  userId: result[0].id,
+                },
+                process.env.SECRET_KEY,
+                {
+                  expiresIn: process.env.TOKEN_EXPIRE_TIME,
+                }
+              );
+              db.query(
+                `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
+              );
+              return res.status(200).send({
+                msg: 'Logged in!',
+                token,
+                user: result[0],
+              });
+            }
+            return res.status(401).send({
+              msg: 'Username or password is incorrect!',
+            });
+          }
+        );
+      }
+    );
+  }
+  if (req.body.email) {
+    db.query(
+      `SELECT * FROM users WHERE email = ${db.escape(req.body.email)};`,
+      (err, result) => {
+        // user does not exists
+        if (err) {
+          return res.status(400).send({
+            msg: err,
+          });
         }
-      );
-    }
-  );
+        if (req.body.email) {
+          if (!result.length) {
+            return res.status(401).send({
+              msg: 'email or password is incorrect!',
+            });
+          }
+        }
+        // email is OK
+        // check password
+        bcrypt.compare(
+          req.body.password,
+          result[0]['password'],
+          (bErr, bResult) => {
+            // wrong password
+            if (bErr) {
+              return res.status(401).send({
+                msg: 'Username or password is incorrect!',
+              });
+            }
+            if (bResult) {
+              const token = jwt.sign(
+                {
+                  username: result[0].username,
+                  userId: result[0].id,
+                },
+                process.env.SECRET_KEY,
+                {
+                  expiresIn: process.env.TOKEN_EXPIRE_TIME,
+                }
+              );
+              db.query(
+                `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
+              );
+              return res.status(200).send({
+                msg: 'Logged in!',
+                token,
+                user: result[0],
+              });
+            }
+            return res.status(401).send({
+              msg: 'Username or password is incorrect!',
+            });
+          }
+        );
+      }
+    );
+  }
 });
 
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
