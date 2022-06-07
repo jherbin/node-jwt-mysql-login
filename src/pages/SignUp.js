@@ -5,6 +5,7 @@ export default function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
+  const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
 
   const signUp = async (e) => {
@@ -14,10 +15,12 @@ export default function SignUp() {
         username: username,
         password: password,
         password_repeat: passwordRepeat,
+        email: email,
       };
       const response = await AuthService.signUp(credentials);
       setMsg(response.msg);
     } catch (error) {
+      console.log(error);
       setMsg(error.response.data.msg);
     }
   };
@@ -31,6 +34,9 @@ export default function SignUp() {
   const handleRepeatPasswordChange = (e) => {
     setPasswordRepeat(e.target.value);
   };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
 
   return (
     <div>
@@ -42,6 +48,13 @@ export default function SignUp() {
           name="username"
           value={username}
           onChange={handleUsernameChange}
+        />
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          value={email}
+          onChange={handleEmailChange}
         />
         <input
           type="password"

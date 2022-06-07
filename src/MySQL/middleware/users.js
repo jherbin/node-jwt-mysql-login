@@ -13,6 +13,16 @@ module.exports = {
     }
 
     if (
+      !req.body.email ||
+      !req.body.email.includes('@') ||
+      !req.body.email.includes('.')
+    ) {
+      return res.status(400).send({
+        msg: `Please enter a valid email`,
+      });
+    }
+
+    if (
       !req.body.password ||
       req.body.password.length < process.env.PASSWORD_MIN_LENGTH
     ) {

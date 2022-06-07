@@ -14,10 +14,11 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   let navigate = useNavigate('/');
 
-  const login = async (username, password) => {
+  const login = async (username, password, email) => {
     try {
       const credentials = {
         username: username,
+        email: email,
         password: password,
       };
       const response = await AuthService.login(credentials);
@@ -29,6 +30,7 @@ function App() {
       window.localStorage.setItem('token', token);
       navigate('/secret-route', { replace: true });
     } catch (error) {
+      console.log(error);
       setLoginMsg(error.response.data.msg);
     }
   };

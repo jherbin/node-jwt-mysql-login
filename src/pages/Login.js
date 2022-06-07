@@ -11,9 +11,14 @@ export default function Login(props) {
     setPassword(e.target.value);
   };
 
+  const [email, setEmail] = useState('');
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
-    props.login(username, password);
+    props.login(username, password, email);
   };
 
   return (
@@ -26,6 +31,13 @@ export default function Login(props) {
           name="username"
           value={username}
           onChange={handleUsernameChange}
+        />
+        <input
+          type="text"
+          placeholder="email"
+          name="email"
+          value={email}
+          onChange={handleEmailChange}
         />
         <input
           type="password"
