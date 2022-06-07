@@ -26,7 +26,7 @@ router.post('/login', (req, res, next) => {
         if (req.body.username) {
           if (!result.length) {
             return res.status(401).send({
-              msg: 'Username or password is incorrect!',
+              msg: 'Username/email or password is incorrect!',
             });
           }
         }
@@ -39,7 +39,7 @@ router.post('/login', (req, res, next) => {
             // wrong password
             if (bErr) {
               return res.status(401).send({
-                msg: 'Username or password is incorrect!',
+                msg: 'Username/email or password is incorrect!',
               });
             }
             if (bResult) {
@@ -63,7 +63,7 @@ router.post('/login', (req, res, next) => {
               });
             }
             return res.status(401).send({
-              msg: 'Username or password is incorrect!',
+              msg: 'Username/email or password is incorrect!',
             });
           }
         );
@@ -83,7 +83,7 @@ router.post('/login', (req, res, next) => {
         if (req.body.email) {
           if (!result.length) {
             return res.status(401).send({
-              msg: 'email or password is incorrect!',
+              msg: 'Username/email or password is incorrect!',
             });
           }
         }
@@ -96,7 +96,7 @@ router.post('/login', (req, res, next) => {
             // wrong password
             if (bErr) {
               return res.status(401).send({
-                msg: 'Username or password is incorrect!',
+                msg: 'Username/email or password is incorrect!',
               });
             }
             if (bResult) {
@@ -120,7 +120,7 @@ router.post('/login', (req, res, next) => {
               });
             }
             return res.status(401).send({
-              msg: 'Username or password is incorrect!',
+              msg: 'Username/email or password is incorrect!',
             });
           }
         );
