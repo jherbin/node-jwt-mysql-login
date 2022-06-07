@@ -21,6 +21,15 @@ const AuthService = {
       })
       .then((response) => response.data);
   },
+  logOut(token) {
+    return axios
+      .post(url + 'logout/', {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then((response) => response.data);
+  },
 };
 
 export default AuthService;
