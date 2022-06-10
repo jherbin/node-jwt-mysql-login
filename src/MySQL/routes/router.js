@@ -7,6 +7,15 @@ const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
 
+router.post('/logout', (req, res, next) => {
+  console.log(req);
+  db.query(
+    `INSERT INTO users.blacklist_tokens (token, expiration_date) VALUES (${
+      (db.escape(req.token), jwt.decode.exp)
+    }, )`
+  );
+});
+
 router.post('/login', (req, res, next) => {
   if (!req.body.username && !req.body.email) {
     return res.status(401).send({
@@ -23,13 +32,12 @@ router.post('/login', (req, res, next) => {
             msg: err,
           });
         }
-        if (req.body.username) {
-          if (!result.length) {
-            return res.status(401).send({
-              msg: 'Username/email or password is incorrect!',
-            });
-          }
+        if (!result.length) {
+          return res.status(401).send({
+            msg: 'Username/email or password is incorrect!',
+          });
         }
+
         // username is OK
         // check password
         bcrypt.compare(
@@ -80,13 +88,12 @@ router.post('/login', (req, res, next) => {
             msg: err,
           });
         }
-        if (req.body.email) {
-          if (!result.length) {
-            return res.status(401).send({
-              msg: 'Username/email or password is incorrect!',
-            });
-          }
+        if (!result.length) {
+          return res.status(401).send({
+            msg: 'Username/email or password is incorrect!',
+          });
         }
+
         // email is OK
         // check password
         bcrypt.compare(
