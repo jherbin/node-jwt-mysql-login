@@ -23,14 +23,13 @@
 # SQL schemas:
 
     CREATE TABLE `users` (
-    `id` varchar(45) NOT NULL,
+    `id` varchar(255) NOT NULL,
     `username` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
-    `email` varchar(255) DEFAULT NULL,
-    `registered` datetime DEFAULT CURRENT_TIMESTAMP,
+    `registered` datetime NOT NULL,
     `last_login` datetime DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `id_UNIQUE` (`id`)
+    `email` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
     CREATE TABLE `users`.`blacklist_tokens` (
