@@ -4,6 +4,7 @@
 
 # to do:
 
+- let username only accept alphanumeric characters and let login screen recognize login/email from single input
 - add blacklist tokens database and expire tokens on logout
 - make login persist through page refresh
 

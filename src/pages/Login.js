@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 export default function Login(props) {
-  const [username, setUsername] = useState('');
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+  const [loginString, setLoginString] = useState('');
+  const handleLoginStringChange = (e) => {
+    setLoginString(e.target.value);
   };
 
   const [password, setPassword] = useState('');
@@ -11,14 +11,21 @@ export default function Login(props) {
     setPassword(e.target.value);
   };
 
-  const [email, setEmail] = useState('');
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
   const handleLogin = (e) => {
     e.preventDefault();
-    props.login(username, password, email);
+    const usesUsername = (string) => {
+      if (string.length > 0) {
+        return /^[A-Za-z0-9]*$/.test(string);
+      }
+    };
+
+    if (usesUsername(loginString)) {
+      //uses username
+      props.login(loginString, password, '');
+    } else {
+      //uses email
+      props.login('', password, loginString);
+    }
   };
 
   return (
@@ -27,17 +34,10 @@ export default function Login(props) {
         <h1>Login</h1>
         <input
           type="text"
-          placeholder="Username"
-          name="username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <input
-          type="text"
-          placeholder="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
+          placeholder="Username or Email"
+          name="loginString"
+          value={loginString}
+          onChange={handleLoginStringChange}
         />
         <input
           type="password"
