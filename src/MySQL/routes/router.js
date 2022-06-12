@@ -23,13 +23,12 @@ router.post('/login', (req, res, next) => {
             msg: err,
           });
         }
-        if (req.body.username) {
-          if (!result.length) {
-            return res.status(401).send({
-              msg: 'Username/email or password is incorrect!',
-            });
-          }
+        if (!result.length) {
+          return res.status(401).send({
+            msg: 'Username/email or password is incorrect!',
+          });
         }
+
         // username is OK
         // check password
         bcrypt.compare(
@@ -80,13 +79,12 @@ router.post('/login', (req, res, next) => {
             msg: err,
           });
         }
-        if (req.body.email) {
-          if (!result.length) {
-            return res.status(401).send({
-              msg: 'Username/email or password is incorrect!',
-            });
-          }
+        if (!result.length) {
+          return res.status(401).send({
+            msg: 'Username/email or password is incorrect!',
+          });
         }
+
         // email is OK
         // check password
         bcrypt.compare(

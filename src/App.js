@@ -27,7 +27,7 @@ function App() {
       setUser(response.user);
       setIsLoggedIn(true);
 
-      window.localStorage.setItem('token', token);
+      window.localStorage.setItem('token', response.token);
       navigate('/secret-route', { replace: true });
     } catch (error) {
       console.log(error);
