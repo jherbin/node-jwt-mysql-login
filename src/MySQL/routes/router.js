@@ -7,6 +7,15 @@ const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
 
+router.post('/logout', (req, res, next) => {
+  console.log(req);
+  db.query(
+    `INSERT INTO users.blacklist_tokens (token, expiration_date) VALUES (${
+      (db.escape(req.token), jwt.decode.exp)
+    }, )`
+  );
+});
+
 router.post('/login', (req, res, next) => {
   if (!req.body.username && !req.body.email) {
     return res.status(401).send({

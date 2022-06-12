@@ -40,6 +40,7 @@ function App() {
     setUser('');
     setIsLoggedIn(false);
     window.localStorage.clear();
+    navigate('/', { replace: true });
   };
 
   return (
@@ -49,18 +50,12 @@ function App() {
         {!isLoggedIn && <Link to="/login">Login</Link>}
         {!isLoggedIn && <Link to="/sign-up">Sign Up</Link>}
         {isLoggedIn && <Link to="/secret-route">Secret Route</Link>}
+        {isLoggedIn && <span onClick={logout}>Logout</span>}
       </nav>
       <Routes>
         <Route
           path="/"
-          element={
-            <Home
-              token={token}
-              user={user}
-              logout={logout}
-              isLoggedIn={isLoggedIn}
-            />
-          }
+          element={<Home token={token} user={user} isLoggedIn={isLoggedIn} />}
         />
         <Route path="login" element={<Login msg={loginMsg} login={login} />} />
         <Route path="sign-up" element={<SignUp />} />
